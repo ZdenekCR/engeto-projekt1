@@ -3,10 +3,16 @@ ODDELOVAC = 30 * '='
 print(ODDELOVAC)
 print("Vitej v nasem programu!")
 print(ODDELOVAC)
-db_hesel = {'bob' : '123', 'ann' : 'pass123', 'mike' : 'password123', 'liz' : 'pass123'}
+db_hesel = {
+'bob': '123', 
+'ann': 'pass123', 
+'mike': 'password123', 
+'liz': 'pass123',
+}
 JMENO = input("Zadej svoje jmeno: ")
 HESLO = input("Zadej svoje heslo: ")
-if JMENO in db_hesel.keys() and HESLO == db_hesel[JMENO]:
+#if JMENO in db_hesel.keys() and HESLO == db_hesel[JMENO]:
+if db_hesel.get(JMENO)==HESLO:
     print("Jsi prihlasen.")
 else:
     print("Zadal jsi chybne jmeno nebo heslo.")
@@ -58,7 +64,10 @@ print(ODDELOVAC)
 print(f"Pocet slov v odstavci je: {len(cisty_list)}")
 count = 0
 male = 0
+velke = 0
 cis = 0
+soucet = []
+delka_slova = {}
 for i in cisty_list:
     if i.istitle():
         count = count + 1
@@ -66,24 +75,27 @@ for i in cisty_list:
         male = male + 1
     if i.isnumeric():
         cis = cis + 1
+    if i.isnumeric():
+        soucet.append(int(i))
+    if i.isupper():
+        velke = velke + 1
+    else:
+        delka_slova[len(i)] = delka_slova.setdefault(len(i), 0) + 1
+
 print(ODDELOVAC)
 print(f"Pocet slov majici na zacatku velke pismeno je: {count}.")
 print(ODDELOVAC)
-print(f"Pocet slov psany malymi pismenu je: {male}.")
+print(f"Pocet slov psany malymi pismeny je: {male}.")
+print(ODDELOVAC)
+print(f"Pocet slov psany velkymi pismeny je: {velke}.")
 print(ODDELOVAC)
 print(f"Pocet cisel v textu je: {cis}.")
 print(ODDELOVAC)
-delka_slova = {}
-for i in cisty_list:
-    delka_slova[len(i)] = delka_slova.setdefault(len(i), 0) + 1
-sort = sorted(delka_slova, key=delka_slova.get, reverse=True)
+#sort = sorted(delka_slova, key=delka_slova.get, reverse=True)
+sort = sorted(delka_slova, reverse=True)
 print("Nejcastejsi pocet pismen ve slove.")
 for i in sort:
     print(i, delka_slova.get(i) * "*", delka_slova.get(i), "x")
-soucet = []
-for i in cisty_list:
-    if i.isnumeric():
-        soucet.append(int(i))
 konec = sum(soucet)
 print(ODDELOVAC)
 print(f"Soucet vsech cisel v textu je {float(konec)}.")
